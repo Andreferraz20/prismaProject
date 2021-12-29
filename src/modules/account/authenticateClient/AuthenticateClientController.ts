@@ -9,7 +9,7 @@ export class AuthenticateClientController {
 
         const { username, password } = request.body;
 
-        const secret = process.env.MD
+        const secret = process.env.MD_CLIENT
 
         const authenticateClientUseCase = new AuthenticateClientUseCase();
 
