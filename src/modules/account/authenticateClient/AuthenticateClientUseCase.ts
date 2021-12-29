@@ -1,15 +1,16 @@
 import { prisma } from "../../../database/prismaClient"
 import { compare } from "bcrypt"
-import { Secret, sign } from "jsonwebtoken"
+import { sign } from "jsonwebtoken"
 
 
 interface IAuthenticateClient {
     username: string;
     password: string;
+    secret: string;
 }
 
 export class AuthenticateClientUseCase {
-    async execute({ username, password }: IAuthenticateClient) {
+    async execute({ username, password, secret }: IAuthenticateClient) {
         //Receber username, password
 
         //Verificar se username esta cadastrado
@@ -31,8 +32,9 @@ export class AuthenticateClientUseCase {
             throw new Error("Username or password invalid!")
         }
 
+
         //gerar o token
-        const token = sign({ username }, "46f86faa6bbf9ac94a7e459509a20ed0", {
+        const token = sign({ username }, secret, {
             subject: client.id,
             expiresIn: "5h"
         })

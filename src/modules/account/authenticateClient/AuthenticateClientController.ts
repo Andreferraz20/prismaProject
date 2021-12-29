@@ -1,14 +1,23 @@
 import { Request, Response } from "express";
 import { AuthenticateClientUseCase } from "./AuthenticateClientUseCase";
+require('dotenv').config({
+    path: "../../../../.env"
+})
 
 export class AuthenticateClientController {
     async handle(request: Request, response: Response) {
 
         const { username, password } = request.body;
 
+        const secret = process.env.MD
+
         const authenticateClientUseCase = new AuthenticateClientUseCase();
 
-        const result = await authenticateClientUseCase.execute({ username, password })
+        if (!secret) {
+            throw new Error("Secret Missing")
+        }
+
+        const result = await authenticateClientUseCase.execute({ username, password, secret })
 
         return response.json(result);
     }
