@@ -15,7 +15,7 @@ model Deliveryman {
   username String @unique
   password String
 
-  Deliveries Deliveries[]
+  deliveries Deliveries[]
   @@map("deliveryman")
 }
 
@@ -24,7 +24,7 @@ model Clients {
   username String @unique
   password String
 
-  Deliveries Deliveries[]
+  deliveries Deliveries[]
   @@map("clients")
 }
 
