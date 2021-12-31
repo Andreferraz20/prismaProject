@@ -6,7 +6,7 @@ export class FindAllDeliveriesUseCase {
             where: {
                 id_client
             }
-        })*/
+        }) forma 1
 
         const deliveries = await prisma.clients.findMany({
             where: {
@@ -14,6 +14,17 @@ export class FindAllDeliveriesUseCase {
             },
             include: {
                 deliveries: true
+            }, forma 2
+        })*/
+
+        const deliveries = await prisma.clients.findMany({
+            where: {
+                id: id_client
+            },
+            select: {
+                id: true,
+                username: true,
+                deliveries: true,
             },
         })
 
